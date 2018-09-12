@@ -67,6 +67,9 @@ plugins=(
   git
 )
 
+# suppress warning message about insecure folders
+ZSH_DISABLE_COMPFIX='true'
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -99,3 +102,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /usr/local/aws/bin/aws_zsh_completer.sh
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# kick off ssh agent
+eval `ssh-agent -s`
