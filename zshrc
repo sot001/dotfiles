@@ -103,5 +103,3 @@ source $ZSH/oh-my-zsh.sh
 source /usr/local/aws/bin/aws_zsh_completer.sh
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
-# kick off ssh agent
-eval `ssh-agent -s`
