@@ -99,3 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source /usr/local/aws/bin/aws_zsh_completer.sh
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# add in my scripts
+export PATH="/Users/kristian/projects/dotfiles/bin:$PATH"

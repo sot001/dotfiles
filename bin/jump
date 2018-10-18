@@ -1,0 +1,5 @@
+# wrapper to jump via a bastion
+
+read user host <<<$(echo "$1" | awk -F@ '{print($1,$2)}')
+
+ssh $user@$(aws --profile readonly ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filter "Name=tag:Name,Values=$host" --output text)
