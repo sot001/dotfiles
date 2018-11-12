@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/kristian/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -97,8 +97,14 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /usr/local/aws/bin/aws_zsh_completer.sh
+if [ -f /usr/local/aws/bin/aws_zsh_completer.sh ]; then
+  source /usr/local/aws/bin/aws_zsh_completer.sh
+else
+  source ~/.local/bin/aws_zsh_completer.sh
+fi
+export PATH="$HOME/.local/bin:$PATH"
+
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 # add in my scripts
-export PATH="/Users/kristian/projects/dotfiles/bin:$PATH"
+export PATH="$HOME/projects/dotfiles/bin:$PATH"
