@@ -108,3 +108,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
+
+# stop sharing history
+unsetopt inc_append_history
+unsetopt share_history
