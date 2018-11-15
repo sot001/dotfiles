@@ -97,14 +97,18 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# AWS
 if [ -f /usr/local/aws/bin/aws_zsh_completer.sh ]; then
   source /usr/local/aws/bin/aws_zsh_completer.sh
 else
   source ~/.local/bin/aws_zsh_completer.sh
 fi
 export PATH="$HOME/.local/bin:$PATH"
-
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
+
+# stop sharing history
+unsetopt inc_append_history
+unsetopt share_history
