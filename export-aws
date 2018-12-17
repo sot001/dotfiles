@@ -1,0 +1,5 @@
+read -p 'what access key id: ' key
+read -p 'what secret access key: ' secret
+
+echo export AWS_ACCESS_KEY_ID=$key
+echo export AWS_SECRET_ACCESS_KEY=$secret

@@ -2,4 +2,5 @@
 # wrapper to jump via a bastion
 
 
-aws --profile prod-readonly ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filter "Name=tag:Name,Values=$1" --output text
+#aws --profile prod-readonly ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filter "Name=tag:Name,Values=$1" --output text
+aws --profile prod-readonly ec2 describe-instances --query "Reservations[].Instances[].Association.PublicIp" --filter "Name=tag:Name,Values=$1" --output text
