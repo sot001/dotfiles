@@ -3,4 +3,4 @@
 
 HOST=$1
 
-aws --profile readonly ec2 stop-instances --instance-id=$(aws --profile readonly ec2 describe-instances --filter "Name=tag:Name,Values=$HOST" --query "Reservations[].Instances[].InstanceId" --output text) 
+aws ec2 stop-instances --instance-id=$(aws --profile readonly ec2 describe-instances --filter "Name=tag:Name,Values=$HOST" --query "Reservations[].Instances[].InstanceId" --output text) 
