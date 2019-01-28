@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ssh -M -S my-ctrl-socket -fnNT -L 3306:mysql1-euw1-prod.cvhu63rfkeuk.eu-west-1.rds.amazonaws.com:3306 46.51.184.60
+# ssh -M -S my-ctrl-socket -fnNT -L 3306:rds.test.remote.com:3306 46.51.184.60
 # ssh -S my-ctrl-socket -O check 46.51.184.60
 # ssh -S my-ctrl-socket -O exit 46.51.184.60
 
