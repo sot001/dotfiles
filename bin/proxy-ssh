@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -z $1 ] || [ -z $2 ]; then
-  echo "Usage: $0 remote-ip bastion-ip"
+if [ -z $1 ]; then
+  echo "Usage: $0 remote"
   
   exit 1
 fi
 
 PRIVATEHOST=$1
-ssh ec2-user@${1} -o "proxycommand ssh -W %h:%p ec2-user@${BASTION}"
+ssh ${1} -o "proxycommand ssh -W %h:%p ubuntu@$(ipfromname workbench)"
