@@ -1,0 +1,134 @@
+#!/bin/bash
+
+# ssh -M -S my-ctrl-socket -fnNT -L 3306:mysql1-euw1-prod.cvhu63rfkeuk.eu-west-1.rds.amazonaws.com:3306 46.51.184.60
+# ssh -S my-ctrl-socket -O check 46.51.184.60
+# ssh -S my-ctrl-socket -O exit 46.51.184.60
+
+echo "Please wait while I gather up the Bastion IPs..."
+prodbastion=$(ipfromname ELK)
+
+# UK Nonprod
+uknonprodbastion=("52.17.234.110" "52.49.16.217")
+uknonprodrds2=("mysql2-euw1-nonprod.cvumsycd4gbn.eu-west-1.rds.amazonaws.com")
+
+function usage() {
+  echo "Choose an RDS instance to connect to. This script relies on having your instances set up correctly within the script, with both the endpoint at the bastion hosts filled. Check out the options block within."
+  echo "It also relies on having your '--login-path's set up correctly using mysql_config_editor. Check the man page for that info. Currently on this machine its set up as;"
+  mysql_config_editor print --all
+}
+
+RANDOM=$$$(date +%s)
+PS3='Select endpoint to connect to: '
+options=("antipiracydb" "btmdb" "emailsenderdb" "marketanalyticsdb" "musobotdb" "musowebdb2" "piracydiscoverdb" "geoipdb" "musobotcrawl1" "musobotcrawl2" "musobotcrawl3" "musobotcrawl4" "musobotcrawl5" "musobotcrawl6" "musobotcrawl7" "Quit")
+select opt in "${options[@]}"
+do
+  case $opt in 
+     "antipiracydb")
+      RDS="antipiracydb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "btmdb")
+      RDS="btmdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "emailsenderdb")
+      RDS="emailsenderdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "marketanalyticsdb")
+      RDS="marketanalyticsdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotdb")
+      RDS="musobotdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musowebdb2")
+      RDS="musowebdb2.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "piracydiscoverdb")
+      RDS="piracydiscoverdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "geoipdb")
+      RDS="geoipdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl1")
+      RDS="musobotcrawl1.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl2")
+      RDS="musobotcrawl2.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl3")
+      RDS="musobotcrawl3.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl4")
+      RDS="musobotcrawl4.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl5")
+      RDS="musobotcrawl5.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl6")
+      RDS="musobotcrawl6.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+     "musobotcrawl7")
+      RDS="musobotcrawl7.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3306
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
+    "Quit")
+      exit
+      ;;
+    *)
+      echo "Invalid option"
+      usage
+      ;;
+  esac
+done
+
+echo "connecting to $RDS via $BASTION over $PORT"
+echo "use 'ssh -S $RDS -O exit $BASTION' to manually disconnect"
+
+ssh -M -S $RDS -fnNT -L $PORT:$RDS:3306 $BASTION
+ssh -S $RDS -O check $BASTION
+mysql --login-path=$opt
+
+ssh -S $RDS -O exit $BASTION
+
