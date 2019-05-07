@@ -124,11 +124,11 @@ do
 done
 
 echo "connecting to $RDS via $BASTION over $PORT"
-echo "use 'ssh -S $RDS -O exit $BASTION' to manually disconnect"
+echo "use 'ssh -S /tmp/$RDS -O exit $BASTION' to manually disconnect"
 
-ssh -M -S $RDS -fnNT -L $PORT:$RDS:3306 $BASTION
-ssh -S $RDS -O check $BASTION
+ssh -M -S /tmp/$RDS -fnNT -L $PORT:$RDS:3306 $BASTION
+ssh -S /tmp/$RDS -O check $BASTION
 mysql --login-path=$opt
 
-ssh -S $RDS -O exit $BASTION
+ssh -S /tmp/$RDS -O exit $BASTION
 
