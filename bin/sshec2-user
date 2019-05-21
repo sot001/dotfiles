@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh ec2-user@$(ipfromname $1)
