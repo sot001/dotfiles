@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-IP=$(aws --profile readonly ec2 describe-instances --query "Reservations[].Instances[].PublicIpAddress" --filter "Name=tag:Name,Values=$1" --output text)
+IP=$(aws --profile readonly-script ec2 describe-instances --query "Reservations[].Instances[].PublicIpAddress" --filter "Name=tag:Name,Values=$1" --output text)
 if [ "$IP" == "" ]; then
   
  IP=$(aws --profile prod-readonly ec2 describe-instances --query "Reservations[].Instances[].PublicIpAddress" --filter "Name=tag:Name,Values=$1" --output text)
