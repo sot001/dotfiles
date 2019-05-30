@@ -1,3 +1,9 @@
 #!/bin/bash
 # $@ passes arguments through
-exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- /usr/local/bin/aws "$@"
+if [ -f ~/.local/bin/aws ]; then
+  AWS=~/.local/bin/aws
+else
+  AWS=/usr/local/bin/aws
+fi
+
+exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- $AWS "$@"
