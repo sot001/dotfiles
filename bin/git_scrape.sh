@@ -6,4 +6,4 @@ cd $HOME/projects
 
 find . -type d -name .git -exec grep url {}/config \; > /tmp/git.repo.list
 
-aws --profile=sotiroff-dump-writer s3 cp /tmp/git.repo.list s3://sotiroff-dump/
+/usr/local/bin/aws --profile=sotiroff-dump-writer s3 cp /tmp/git.repo.list s3://sotiroff-dump/

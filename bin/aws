@@ -6,4 +6,8 @@ else
   AWS=/usr/local/bin/aws
 fi
 
-exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- $AWS "$@"
+if [ ! -z $AWS_PROFILE ]; then
+  exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- $AWS "$@"
+else
+  $AWS "$@"
+fi

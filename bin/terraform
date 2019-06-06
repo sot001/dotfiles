@@ -1,3 +1,9 @@
 #!/bin/bash
 # $@ passes arguments through
-exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- /usr/local/bin/terraform "$@"
+TERRAFORM=/usr/local/bin/terraform
+
+if [ ! -z $AWS_PROFILE ]; then
+  exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- $TERRAFORM "$@"
+else
+  $TERRAFORM "$@"
+fi
