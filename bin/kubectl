@@ -1,0 +1,13 @@
+#!/bin/bash
+# $@ passes arguments through
+if [ -f ~/.local/bin/kubectl ]; then
+  KC=~/.local/bin/kubectl
+else
+  KC=/usr/local/bin/kubectl
+fi
+
+if [ ! -z $AWS_PROFILE ]; then
+  exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" -- $KC "$@"
+else
+  $KC "$@"
+fi
