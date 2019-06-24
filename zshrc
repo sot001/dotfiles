@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 # AWS
 if [ -f /usr/local/aws/bin/aws_zsh_completer.sh ]; then
   source /usr/local/aws/bin/aws_zsh_completer.sh
-else
+elif [ -f ~/.local/bin/aws_zsh_completer.sh ]; then
   source ~/.local/bin/aws_zsh_completer.sh
 fi
 export PATH="$HOME/.local/bin:$PATH"
