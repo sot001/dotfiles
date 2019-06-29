@@ -5,7 +5,7 @@
 # ssh -S my-ctrl-socket -O exit 46.51.184.60
 
 echo "Please wait while I gather up the Bastion IPs..."
-prodbastion=$(ipfromname ELK)
+prodbastion=$(ipfromname musoBastion)
 
 # UK Nonprod
 uknonprodbastion=("52.17.234.110" "52.49.16.217")
@@ -25,91 +25,91 @@ do
   case $opt in 
      "antipiracydb")
       RDS="antipiracydb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3307
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "btmdb")
       RDS="btmdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3308
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "emailsenderdb")
       RDS="emailsenderdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3309
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "marketanalyticsdb")
       RDS="marketanalyticsdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3310
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotdb")
       RDS="musobotdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3311
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musowebdb2")
       RDS="musowebdb2.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3312
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "piracydiscoverdb")
       RDS="piracydiscoverdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3313
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "geoipdb")
       RDS="geoipdb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3314
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl1")
       RDS="musobotcrawl1.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3315
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl2")
       RDS="musobotcrawl2.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3316
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl3")
       RDS="musobotcrawl3.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3317
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl4")
       RDS="musobotcrawl4.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3318
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl5")
       RDS="musobotcrawl5.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3319
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl6")
       RDS="musobotcrawl6.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3320
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
      "musobotcrawl7")
       RDS="musobotcrawl7.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
-      PORT=3306
+      PORT=3321
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
@@ -128,7 +128,7 @@ echo "use 'ssh -S /tmp/$RDS -O exit $BASTION' to manually disconnect"
 
 ssh -M -S /tmp/$RDS -fnNT -L $PORT:$RDS:3306 $BASTION
 ssh -S /tmp/$RDS -O check $BASTION
-mysql --login-path=$opt
+mysql --login-path=$opt --port $PORT
 
 ssh -S /tmp/$RDS -O exit $BASTION
 

@@ -1,10 +1,4 @@
 #!/bin/bash
 
-if [ -z $1 ]; then
-  echo "Usage: $0 remote"
-  
-  exit 1
-fi
+ssh -i ~/.ssh/bastion-20190626.pem -D 8080 -C -q -N ec2-user@$(ipfromname musoBastion)
 
-PRIVATEHOST=$1
-ssh ${1} -o "proxycommand ssh -W %h:%p ubuntu@$(ipfromname workbench)"
