@@ -3,13 +3,12 @@
 # ssh -M -S my-ctrl-socket -fnNT -L 3306:mysql1-euw1-prod.cvhu63rfkeuk.eu-west-1.rds.amazonaws.com:3306 46.51.184.60
 # ssh -S my-ctrl-socket -O check 46.51.184.60
 # ssh -S my-ctrl-socket -O exit 46.51.184.60
+# to set up a new connectin
+# mysql_config_editor set --login-path=domaincollectordb --host=127.0.0.1 --port 3322 --user=domaincollector --password
 
 echo "Please wait while I gather up the Bastion IPs..."
 prodbastion=$(ipfromname musoBastion)
-
-# UK Nonprod
-uknonprodbastion=("52.17.234.110" "52.49.16.217")
-uknonprodrds2=("mysql2-euw1-nonprod.cvumsycd4gbn.eu-west-1.rds.amazonaws.com")
+USER="ec2-user"
 
 function usage() {
   echo "Choose an RDS instance to connect to. This script relies on having your instances set up correctly within the script, with both the endpoint at the bastion hosts filled. Check out the options block within."
@@ -19,7 +18,7 @@ function usage() {
 
 RANDOM=$$$(date +%s)
 PS3='Select endpoint to connect to: '
-options=("antipiracydb" "btmdb" "emailsenderdb" "marketanalyticsdb" "musobotdb" "musowebdb2" "piracydiscoverdb" "geoipdb" "musobotcrawl1" "musobotcrawl2" "musobotcrawl3" "musobotcrawl4" "musobotcrawl5" "musobotcrawl6" "musobotcrawl7" "Quit")
+options=("antipiracydb" "btmdb" "domaincollectordb" "emailsenderdb" "marketanalyticsdb" "musobotdb" "musowebdb2" "piracydiscoverdb" "geoipdb" "musobotcrawl1" "musobotcrawl2" "musobotcrawl3" "musobotcrawl4" "musobotcrawl5" "musobotcrawl6" "musobotcrawl7" "Quit")
 select opt in "${options[@]}"
 do
   case $opt in 
@@ -113,6 +112,12 @@ do
       BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
       break
       ;;
+     "domaincollectordb")
+      RDS="domaincollectordb.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com"
+      PORT=3322
+      BASTION=${prodbastion[$RANDOM % ${#prodbastion[@]} ]}
+      break
+      ;;
     "Quit")
       exit
       ;;
@@ -126,9 +131,9 @@ done
 echo "connecting to $RDS via $BASTION over $PORT"
 echo "use 'ssh -S /tmp/$RDS -O exit $BASTION' to manually disconnect"
 
-ssh -M -S /tmp/$RDS -fnNT -L $PORT:$RDS:3306 $BASTION
-ssh -S /tmp/$RDS -O check $BASTION
+ssh -M -S /tmp/$RDS -fnNT -L $PORT:$RDS:3306 $USER@$BASTION
+ssh -S /tmp/$RDS -O check $USER@$BASTION
 mysql --login-path=$opt --port $PORT
 
-ssh -S /tmp/$RDS -O exit $BASTION
+ssh -S /tmp/$RDS -O exit $USER@$BASTION
 
