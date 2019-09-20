@@ -4,7 +4,7 @@
 IP=$(aws --profile readonly-script ec2 describe-instances --query "Reservations[].Instances[].InstanceId" --filter "Name=tag:Name,Values=$1" --output text)
 if [ "$IP" == "" ]; then
   
- IP=$(aws --profile prod-readonly ec2 describe-instances --query "Reservations[].Instances[].InstanceId" --filter "Name=tag:Name,Values=$1" --output text)
+ IP=$(aws --profile prod-readonly-script ec2 describe-instances --query "Reservations[].Instances[].InstanceId" --filter "Name=tag:Name,Values=$1" --output text)
 
 fi
 
