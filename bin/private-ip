@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-IP=$(aws --profile readonly-script ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filter "Name=tag:Name,Values=$1" --output text)
+IP=$(aws --profile readonly-script ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filters "Name=tag:Name,Values=$1"  "Name=instance-state-name,Values=running" --output text)
 if [ "$IP" == "" ]; then
   
- IP=$(aws --profile prod-readonly-script ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filter "Name=tag:Name,Values=$1" --output text)
+ IP=$(aws --profile prod-readonly-script ec2 describe-instances --query "Reservations[].Instances[].PrivateIpAddress" --filters "Name=tag:Name,Values=$1" "Name=instance-state-name,Values=running" --output text)
 
 fi
 
