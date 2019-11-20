@@ -3,7 +3,7 @@
 TERRAFORM=/usr/local/bin/terraform
 
 if [ ! -z $AWS_PROFILE ]; then
-  exec aws-vault exec "${AWS_PROFILE:-dev-readonly}" --assume-role-ttl=60m -- $TERRAFORM "$@"
+  exec aws-vault --assume-role-ttl=60m --session-ttl=12h exec "${AWS_PROFILE:-dev-readonly}" --assume-role-ttl=60m -- $TERRAFORM "$@"
 else
   $TERRAFORM "$@"
 fi
