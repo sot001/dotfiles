@@ -7,7 +7,7 @@
 
 function usage() {
   echo "$0 <RDS Endpoint>"
-  echo "eg: $0 musobotcrawler1
+  echo "eg: $0 musobotcrawler1"
 }
 
 if [ -z $1 ]; then
@@ -22,11 +22,11 @@ echo "connecting to $RDS via $BASTION over $LOCALPORT"
 echo "use 'ssh -S $RDS -O exit $BASTION' to manually disconnect"
 
 ssh -M -S $RDS -fnNT -L $LOCALPORT:${RDS}.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com:3306 ec2-user@$BASTION
-ssh -S ${RDS}.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com -O check $BASTION
+ssh -S ${RDS} -O check $BASTION
 
 echo "connecting to $RDS... "
 
-mysql --loginpath=$RDS 
+mysql --login-path=$RDS --host 127.0.0.1
 
 ssh -S $RDS -O exit $BASTION
 
