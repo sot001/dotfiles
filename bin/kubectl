@@ -7,7 +7,7 @@ else
 fi
 
 if [ ! -z $AWS_PROFILE ]; then
-  exec aws-vault exec --assume-role-ttl=60m --session-ttl=12h "${AWS_PROFILE:-dev-readonly}" -- $KC "$@"
+  exec aws-vault exec --assume-role-ttl=60m --session-ttl=12h "${AWS_PROFILE:dev-readonly}" -- $KC "$@"
 else
   $KC "$@"
 fi

@@ -6,29 +6,27 @@
 
 
 function usage() {
-  echo "$0 <JUMP HOST> <RDS Endpoint>"
+  echo "$0 <RDS Endpoint>"
+  echo "eg: $0 musobotcrawler1
 }
 
 if [ -z $1 ]; then
   usage
   exit 0
 fi
-BASTION=$1
-RDS=$2
+BASTION="musoBastion"
+RDS=$1
 LOCALPORT=3306 # change this to an input variable if we need to change the port locally
 
 echo "connecting to $RDS via $BASTION over $LOCALPORT"
 echo "use 'ssh -S $RDS -O exit $BASTION' to manually disconnect"
 
-ssh -M -S $RDS -fnNT -L $LOCALPORT:$RDS:3306 ec2-user@$BASTION
-ssh -S $RDS -O check $BASTION
+ssh -M -S $RDS -fnNT -L $LOCALPORT:${RDS}.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com:3306 ec2-user@$BASTION
+ssh -S ${RDS}.ctf4vxsdwq3k.us-east-1.rds.amazonaws.com -O check $BASTION
 
 echo "connecting to $RDS... "
 
-# ask for the username
-read -p "Mysql username: " USER
-
-mysql -h 127.0.0.1 -u $USER -p
+mysql --loginpath=$RDS 
 
 ssh -S $RDS -O exit $BASTION
 
