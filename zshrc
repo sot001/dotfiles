@@ -109,6 +109,11 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
+# aliases
+alias kc="kubectl"
+alias tfr="terraform init -reconfigure"
+alias tfa="terraform apply"
+
 # stop sharing history
 unsetopt inc_append_history
 unsetopt share_history
