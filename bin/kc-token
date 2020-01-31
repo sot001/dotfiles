@@ -1,0 +1,5 @@
+if [ -z $AWS_PROFILE ]; then
+  echo "AWS_PROFILE is not set"
+  exit 1
+fi
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
