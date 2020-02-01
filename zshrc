@@ -111,8 +111,7 @@ export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
 # aliases
 alias kc="kubectl"
-alias tfr="terraform init -reconfigure"
-alias tfa="terraform apply"
+alias tf="terraform"
 
 # stop sharing history
 unsetopt inc_append_history
