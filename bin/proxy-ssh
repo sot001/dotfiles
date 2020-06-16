@@ -1,4 +1,0 @@
-#!/bin/bash
-
-ssh -i ~/.ssh/bastion-20190626.pem -D 8080 -C -q -N ec2-user@$(ipfromname musoBastion)
-
