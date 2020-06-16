@@ -106,6 +106,8 @@ elif [ -f ~/.local/bin/aws_zsh_completer.sh ]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+# adding in go
+export PATH=$PATH:/usr/local/go/bin
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
