@@ -111,6 +111,9 @@ export PATH=$PATH:/usr/local/go/bin
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
+# gopass
+autoload -U compinit && compinit
+
 # aliases
 alias kc="kubectl"
 alias tf="terraform"
