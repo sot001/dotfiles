@@ -1,9 +1,0 @@
-#!/bin/bash
-# $@ passes arguments through
-TERRAFORM=/usr/local/bin/terraform
-
-if [ ! -z $AWS_PROFILE ]; then
-  exec aws-vault exec "${AWS_PROFILE:dev-readonly}" --assume-role-ttl=60m --session-ttl=12h -- $TERRAFORM "$@"
-else
-  $TERRAFORM "$@"
-fi

@@ -117,6 +117,7 @@ autoload -U compinit && compinit
 # aliases
 alias kc="kubectl"
 alias tf="terraform"
+alias awsume=". awsume"
 
 # stop sharing history
 unsetopt inc_append_history
