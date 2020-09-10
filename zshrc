@@ -113,6 +113,8 @@ export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
 # gopass
 autoload -U compinit && compinit
+# not sure if I need this on MacOS. may need to have a clause for linux
+#export GPG_TTY=$(tty)
 
 # aliases
 alias kc="kubectl"
