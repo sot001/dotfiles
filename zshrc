@@ -113,7 +113,6 @@ export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
 # gopass
 autoload -U compinit && compinit
-#export GPG_TTY=$(tty)
 
 # aliases
 alias kc="kubectl"
