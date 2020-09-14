@@ -119,8 +119,18 @@ autoload -U compinit && compinit
 # aliases
 alias kc="kubectl"
 alias tf="terraform"
-alias awsume=". awsume"
+alias awsume=". $(pyenv which awsume)"
+
+# aws
+# because of a mad PR #4702
+export AWS_PAGER=""
+
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # stop sharing history
 unsetopt inc_append_history
 unsetopt share_history
+
