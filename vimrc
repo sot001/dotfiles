@@ -1,6 +1,8 @@
 set nocompatible              " required
 filetype off                  " required
 
+syntax enable
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -36,7 +38,9 @@ let g:syntastic_python_flake8_post_args='--ignore=E501,E128,E225,E302,E303'
 set tabstop=2
 set expandtab
 set encoding=utf-8
-" let python_highlight_all=1
-
 syntax on
 
+" F1: toggle autoindent
+nnoremap <F1> :set autoindent!<CR>
+" F3: Toggle list (display unprintable characters).
+nnoremap <F3> :set list!<CR>
