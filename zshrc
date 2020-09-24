@@ -111,6 +111,18 @@ export PATH=$PATH:/usr/local/go/bin
 # add in my scripts
 export PATH="$HOME/projects/dotfiles/bin:$PATH"
 
+# MacOS specific
+if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+  # ruby
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+
+  # brew
+  export PATH="/usr/local/sbin:$PATH"
+
+fi
+
 # gopass
 autoload -U compinit && compinit
 # not sure if I need this on MacOS. may need to have a clause for linux
@@ -119,6 +131,7 @@ autoload -U compinit && compinit
 # aliases
 alias kc="kubectl"
 alias tf="terraform"
+alias aws-whoami="aws sts get-caller-identity"
 alias awsume=". $(pyenv which awsume)"
 
 # aws
