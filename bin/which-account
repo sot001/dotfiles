@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ ! $1 ]; then
+  echo "Usage: $0 accountid"
+  exit 1
+fi
+
+echo Account name: $(aws --profile billing organizations describe-account --account $1 --query "Account.Name" --output text)
+
+echo
+echo and these are the roles
+grep -B 2 $1 ~/.aws/config | egrep 'profile|role_arn'
