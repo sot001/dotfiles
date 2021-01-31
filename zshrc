@@ -132,18 +132,14 @@ autoload -U compinit && compinit
 alias kc="kubectl"
 alias tf="terraform"
 alias aws-whoami="aws sts get-caller-identity"
-alias awsume=". $(pyenv which awsume)"
 
 # aws
 # because of a mad PR #4702
 export AWS_PAGER=""
 
 # pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+! command -v pyenv >/dev/null 2>&1 || { eval "$(pyenv init -)"; alias awsume=". $(pyenv which awsume)"; }
 
 # stop sharing history
 unsetopt inc_append_history
 unsetopt share_history
-
