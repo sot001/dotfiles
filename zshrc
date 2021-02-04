@@ -132,6 +132,8 @@ autoload -U compinit && compinit
 alias kc="kubectl"
 alias tf="terraform"
 alias aws-whoami="aws sts get-caller-identity"
+alias flyprod="fly -t prod"
+alias flydev="fly -t dev"
 
 # aws
 # because of a mad PR #4702
