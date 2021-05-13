@@ -57,6 +57,7 @@ ZSH_THEME="bira"
 
 # Would you like to use another custom folder than $ZSH/custom?
 #ZSH_CUSTOM=~/projects/dotfiles/zshrc_custom
+ZSH_CUSTOM=/Users/kristiansotiroff/projects/dotfiles/zshrc_custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -139,6 +140,18 @@ alias flydev="fly -t dev"
 # aws
 # because of a mad PR #4702
 export AWS_PAGER=""
+
+# tfswitch
+load-tfswitch() {
+  local tfswitchrc_path=".terraform-version"
+
+  if [ -f "$tfswitchrc_path" ]; then
+    tfswitch
+  fi
+}
+add-zsh-hook chpwd load-tfswitch
+load-tfswitch
+
 
 # pyenv
 ! command -v pyenv >/dev/null 2>&1 || { eval "$(pyenv init -)"; alias awsume=". $(pyenv which awsume)"; }
